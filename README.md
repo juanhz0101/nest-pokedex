@@ -21,3 +21,4 @@ docker-compose up -d
 ## Stack usado
 * MongoDB
 * NestJS
+* Node -v v18.13.0
