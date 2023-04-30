@@ -14,9 +14,12 @@ export class SeedService {
   ) {}
   private readonly axios: AxiosInstance = axios;
   async executeSeed() {
+    await this.pokemonModel.deleteMany({});
     const { data } = await axios.get<PokeResponse>(
-      'https://pokeapi.co/api/v2/pokemon?limit=10',
+      'https://pokeapi.co/api/v2/pokemon?limit=650',
     );
+
+    // Mi propia solución
 
     const pokemons: CreatePokemonDto[] = [];
     data.results.forEach(({ name, url }) => {
@@ -27,6 +30,16 @@ export class SeedService {
     });
 
     await this.pokemonModel.insertMany(pokemons);
-    return data;
+
+    // Solución del profesor 1 con promesas no muy eficiente
+    /*
+    const insertPromisesArray = [];
+    data.results.forEach(({ name, url }) => {
+      const segments = url.split('/');
+      const no = +segments[segments.length - 2];
+      insertPromisesArray.push(this.pokemonModel.create({ name, no }));
+    });
+    await Promise.all(insertPromisesArray);*/
+    return 'Seed Executed';
   }
 }
