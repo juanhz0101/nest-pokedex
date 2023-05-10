@@ -36,3 +36,10 @@ http://localhost:3000/api/v2/seed
 * MongoDB
 * NestJS
 * Node -v v18.13.0
+
+#Notas
+Heroku deploy sin cambios:
+```bash
+git commit --allow-empty -m "Trigger Heroku deploy"
+git push heroku main
+```
